@@ -23,6 +23,7 @@ init_db()
 
 @app.route("/", methods=["GET", "POST"])
 def home():
+    #何でも書いてねん
     conn = sqlite3.connect(db_file)
     c = conn.cursor()
     
