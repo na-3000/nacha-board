@@ -1,0 +1,124 @@
+🥐 ナーちゃん掲示板をネット公開するまでの手順まとめ
+① ローカルで掲示板を作る
+
+フォルダ構成を作る
+
+python/
+├─ app.py
+├─ requirements.txt
+├─ Procfile
+└─ templates/
+    └─ index.html
+
+
+app.py に Flask のコードを書く
+
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+posts = []
+
+@app.route("/", methods=["GET", "POST"])
+def home():
+    if request.method == "POST":
+        name = request.form["name"]
+        text = request.form["text"]
+        posts.append({"name": name, "text": text})
+    return render_template("index.html", posts=posts)
+
+if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
+
+
+index.html を templates フォルダに置く
+
+今作ったHTMLそのままでOK
+
+requirements.txt を作る
+
+flask
+gunicorn
+
+
+Procfile を作る
+
+web: gunicorn app:app
+
+
+ローカルで確認
+
+python app.py
+
+
+ブラウザで http://127.0.0.1:5000
+ を開いて投稿確認。
+
+② GitHub にコードをアップする
+
+https://github.com
+ に行き Sign up → 無料アカウント作成
+
+リポジトリ作成
+
+名前： nacha-board
+
+公開（Public）
+
+README追加OK
+
+リポジトリにアップロード
+
+「＋」→ 「既存のファイルをアップロード」
+
+フォルダごとアップロード
+
+app.py
+
+requirements.txt
+
+Procfile
+
+templates フォルダ
+
+「変更をコミット」を押す
+
+③ Render にアップロードして公開
+
+https://render.com
+ にアクセス
+
+ダッシュボード → New → Web Service
+
+GitHub を接続
+
+「レンダリングをインストール」クリック
+
+ナチャボードだけチェックしてOK
+
+サービス設定
+
+言語 / ランタイム環境 → Python 3
+
+Build Command → pip install -r requirements.txt
+
+Start Command → gunicorn app:app
+
+インスタンスタイプ → 無料（Free）
+
+環境変数はいじらなくてOK
+
+Create Web Service（ウェブサービス作成） を押す
+
+ログを確認
+
+赤文字なし → 正常
+
+緑文字で「Running on …」表示される
+
+紫色のURLをクリック
+
+世界公開されてる掲示板にアクセス可能
+
+🥳 完了！
