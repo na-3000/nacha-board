@@ -1,0 +1,9 @@
+# Python バイトコード
+*.pyc
+__pycache__/
+
+# VSCode 設定
+.vscode/
+
+# データベースファイル（必要なら無視）
+database.db
