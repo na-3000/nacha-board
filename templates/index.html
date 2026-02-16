@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ナーちゃん掲示板</title>
+</head>
+<body>
+    <h1>ナーちゃん掲示板</h1>
+
+    <form method="POST">
+        名前: <input type="text" name="name"><br>
+        投稿内容:<br>
+        <textarea name="text" rows="3" cols="40"></textarea><br>
+        <input type="submit" value="投稿">
+    </form>
+
+    <hr>
+    <h2>投稿一覧</h2>
+    {% for post in posts %}
+        <p><b>{{ post.name }}</b>: {{ post.text }}</p>
+        <hr>
+    {% endfor %}
+</body>
+</html>
